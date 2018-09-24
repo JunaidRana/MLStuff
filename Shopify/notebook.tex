@@ -1,0 +1,736 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Model}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shopify apps scraping \PYZhy{} all apps.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}                                             Icon-src  \textbackslash{}
+         0  https://apps.shopifycdn.com/listing\_images/f3d{\ldots}   
+         1  https://apps.shopifycdn.com/listing\_images/55a{\ldots}   
+         2  https://apps.shopifycdn.com/listing\_images/635{\ldots}   
+         3  https://apps.shopifycdn.com/listing\_images/ca3{\ldots}   
+         4  https://apps.shopifycdn.com/listing\_images/cd7{\ldots}   
+         
+                                    Title              Pricing  \textbackslash{}
+         0  Privy - Free Conversion Tools  Free plan available   
+         1         Sales Pop by Beeketing                 Free   
+         2    Free Shipping Bar by Hextom  Free plan available   
+         3    Countdown Cart by Beeketing                 Free   
+         4      SEO Image Optimizer - SEO                 Free   
+         
+                                                  Description  Average rating  \textbackslash{}
+         0  Free email popups with exit intent, targeted o{\ldots}             4.7   
+         1               Boost sales with recent sales popups             4.9   
+         2  Promote free shipping with a cart goal to boos{\ldots}             4.9   
+         3         Create urgency to maximize conversion rate             4.8   
+         4  Drive SEO -gain more traffic from Google Image{\ldots}             4.7   
+         
+            Rating Count  Page                         pagination-href  
+         0         16577     1  https://apps.shopify.com/browse?page=1  
+         1         14159     1  https://apps.shopify.com/browse?page=1  
+         2          6751     1  https://apps.shopify.com/browse?page=1  
+         3          6590     2  https://apps.shopify.com/browse?page=2  
+         4          5885     1  https://apps.shopify.com/browse?page=1  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{df1}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pricing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rating Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Page}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{df1}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}Discardding Icon\PYZhy{}src and Pagination\PYZhy{}href}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}75}]:}                            Title              Pricing  \textbackslash{}
+         0  Privy - Free Conversion Tools  Free plan available   
+         1         Sales Pop by Beeketing                 Free   
+         2    Free Shipping Bar by Hextom  Free plan available   
+         3    Countdown Cart by Beeketing                 Free   
+         4      SEO Image Optimizer - SEO                 Free   
+         
+                                                  Description  Average rating  \textbackslash{}
+         0  Free email popups with exit intent, targeted o{\ldots}             4.7   
+         1               Boost sales with recent sales popups             4.9   
+         2  Promote free shipping with a cart goal to boos{\ldots}             4.9   
+         3         Create urgency to maximize conversion rate             4.8   
+         4  Drive SEO -gain more traffic from Google Image{\ldots}             4.7   
+         
+            Rating Count  Page  
+         0         16577     1  
+         1         14159     1  
+         2          6751     1  
+         3          6590     2  
+         4          5885     1  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{df1}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} (2128, 6)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}We have 2128 records against 6 features}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{c+c1}{\PYZsh{}Pricing}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{n}{price\PYZus{}count}\PY{o}{=}\PY{n}{df1}\PY{o}{.}\PY{n}{Pricing}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+         \PY{n}{price\PYZus{}count}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}91}]:} 7-day free trial         401
+         14-day free trial        357
+         Free                     278
+         Free to install          207
+         Free plan available      194
+         30-day free trial        172
+         3-day free trial         117
+         15-day free trial         78
+         5-day free trial          76
+         10-day free trial         55
+         2-day free trial          18
+         1-day free trial          18
+         21-day free trial         17
+         4-day free trial          10
+         \$4.99/month                8
+         \$1.99/month                5
+         28-day free trial          5
+         \$20 one-time charge        4
+         \$2.99/month                4
+         \$3.99/month                3
+         6-day free trial           3
+         \$99 one-time charge        3
+         \$10 one-time charge        3
+         90-day free trial          3
+         \$6.25/month                3
+         From \$9/month              2
+         From \$15/month             2
+         8-day free trial           2
+         \$5/month                   2
+         \$7.99/month                2
+                                 {\ldots} 
+         \$0.99 one-time charge      1
+         \$6.99/month                1
+         \$8 one-time charge         1
+         From \$7.99/month           1
+         From \$12.99/month          1
+         \$149 one-time charge       1
+         \$8/month                   1
+         \$299/month                 1
+         From \$500/month            1
+         From \$199/month            1
+         \$59 one-time charge        1
+         From \$30/month             1
+         45-day free trial          1
+         \$20/month                  1
+         From \$19.99/month          1
+         \$5 one-time charge         1
+         \$199.99/month              1
+         \$49 one-time charge        1
+         From \$49/month             1
+         From \$45/month             1
+         From \$120/month            1
+         From \$14.95/month          1
+         \$18/month                  1
+         From \$99/month             1
+         \$85/month                  1
+         \$53 one-time charge        1
+         From \$5/month              1
+         \$15/month                  1
+         \$29 one-time charge        1
+         \$9.99 one-time charge      1
+         Name: Pricing, Length: 93, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n}{df1}\PY{o}{.}\PY{n}{Pricing}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}there are different 93 prices avaiable}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{c+c1}{\PYZsh{}we can see only 5 price brakets covers 1437 apps which are 67\PYZpc{} of total 2128}
+         
+         \PY{c+c1}{\PYZsh{}Free apps are mostly popular among users}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{c+c1}{\PYZsh{}Average Rating}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{n}{apps\PYZus{}avg\PYZus{}rating}\PY{o}{=}\PY{n}{df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{apps\PYZus{}avg\PYZus{}rating}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{apps\PYZus{}avg\PYZus{}rating}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{pie}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5.0    558
+0.0    305
+4.8    212
+4.9    184
+4.7    133
+Name: Average rating, dtype: int64
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} 5.0 rating are best apps.}
+        
+        \PY{c+c1}{\PYZsh{}0.0 are the blank entries in the data}
+        
+        \PY{c+c1}{\PYZsh{}We have four ratings w.r.t to thier occurance in data(5, 4.8, 4.9, 4.7)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}Finding maximum Rating count w.r.t to prices and average count}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{n}{max\PYZus{}rating\PYZus{}count}\PY{o}{=} \PY{n}{df1}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rating Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{max\PYZus{}rating\PYZus{}count}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}104}]:}                                Title              Pricing  \textbackslash{}
+          0      Privy - Free Conversion Tools  Free plan available   
+          1             Sales Pop by Beeketing                 Free   
+          2        Free Shipping Bar by Hextom  Free plan available   
+          3        Countdown Cart by Beeketing                 Free   
+          4          SEO Image Optimizer - SEO                 Free   
+          5                             Recart    28-day free trial   
+          6     Better Coupon Box by Beeketing                 Free   
+          7            BEST Currency Converter  Free plan available   
+          8          SEO Image - SEO optimized                 Free   
+          9         Facebook Chat by Beeketing                 Free   
+          10       Rewards, referrals, and VIP  Free plan available   
+          11            Quick Announcement Bar  Free plan available   
+          12               SEO by FoxDrive SEO                 Free   
+          13        AfterShip - Track + Engage      Free to install   
+          14    FREE Traffic and Ads by Sixads      Free to install   
+          15                     EU Cookie Bar                 Free   
+          16                   Consistent Cart    28-day free trial   
+          17                            Oberlo  Free plan available   
+          18       Discounted Upsells - Upsell     7-day free trial   
+          19    Digital Salesperson AI by Fera  Free plan available   
+          20     Omnisend Marketing Automation      Free to install   
+          21          Happy Email by Beeketing                 Free   
+          22          Justuno Conversion Suite    15-day free trial   
+          23     Mobile Web Boost by Beeketing                 Free   
+          24    Rewards and Referrals by Swell  Free plan available   
+          25              Ultimate Sales Boost  Free plan available   
+          26                   Ads by Varinode                 Free   
+          27                          Printful                 Free   
+          28                       Plug in SEO     7-day free trial   
+          29          Stamped.io Reviews \& UGC  Free plan available   
+          {\ldots}                              {\ldots}                  {\ldots}   
+          1241                   Campaignified     7-day free trial   
+          1242                      Mothership    30-day free trial   
+          1243     Leadslide Free Shipping Bar                 Free   
+          1244  Product Recommendation Quizzes      Free to install   
+          1245            Round Up for Charity                 Free   
+          1300                 Automated Email  Free plan available   
+          1301                        UserGems    14-day free trial   
+          1302               Smart Meta Fields                 Free   
+          1303      Metrilo Marketing Platform    14-day free trial   
+          1304                         Ship\&co      Free to install   
+          1385           Ali Orders - FireApps                 Free   
+          1386  Pakkelabels.dk Shipping Module      Free to install   
+          1387                 Add <HEAD> Code     3-day free trial   
+          1388                       IQ Slider    30-day free trial   
+          1389       Link Manager by 2can Apps     7-day free trial   
+          1488        Conekta Offline Payments      Free to install   
+          1489                            Cyfe      Free to install   
+          1490               Avalara TrustFile            \$240/year   
+          1491                     Shopventory    30-day free trial   
+          1492                        FlagShip      Free to install   
+          1615     LeadsRx Attribution Monitor                 Free   
+          1616                       PrintTech     7-day free trial   
+          1617   OptinMonster Conversion Tools    30-day free trial   
+          1618    Shoppy Bot - Smart Assistant                 Free   
+          1619                QR Code By Freeh                 Free   
+          1823                     Transporter                 Free   
+          1824           Connex for QuickBooks    14-day free trial   
+          1825          Easy Free Shipping Bar                 Free   
+          1826   Variant Filter by Power Tools    14-day free trial   
+          1827      Google Shopping Feed Audit                 Free   
+          
+                                                      Description  Average rating  \textbackslash{}
+          0     Free email popups with exit intent, targeted o{\ldots}             4.7   
+          1                  Boost sales with recent sales popups             4.9   
+          2     Promote free shipping with a cart goal to boos{\ldots}             4.9   
+          3            Create urgency to maximize conversion rate             4.8   
+          4     Drive SEO -gain more traffic from Google Image{\ldots}             4.7   
+          5          Messenger Marketing \& Abandoned Cart Toolbox             4.8   
+          6     Customizable coupon popup to collect emails \& {\ldots}             4.8   
+          7     Show prices in customers local currency. Make {\ldots}             4.8   
+          8                                SEO Image Optimization             4.9   
+          9     Live chat with your customers using Facebook M{\ldots}             4.8   
+          10    Make your customers smile with points, referra{\ldots}             4.8   
+          11    Promote discounts, motivate customers to incre{\ldots}             4.9   
+          12                 Improve SEO with Alt Tags for Images             4.9   
+          13    Delight customers with branded tracking page \&{\ldots}             4.8   
+          14    Get traffic by displaying free ads in partner {\ldots}             4.8   
+          15           Provide a cookie bar to European customers             4.6   
+          16    Activity Monitor, Facebook Marketing \& Abandon{\ldots}             4.8   
+          17                     Find products to sell on Shopify             4.8   
+          18                Cross Sell and Upsell for more Sales!             4.8   
+          19    Social Proof \& Urgency That Boosts Conversions{\ldots}             4.9   
+          20    Email \& marketing automation that helps you se{\ldots}             4.9   
+          21    Automated and personalized welcome emails to n{\ldots}             4.8   
+          22    All-In-One Conversion Marketing Suite For On-S{\ldots}             4.7   
+          23    Boost your conversion rate and revenue on mobile.             4.8   
+          24    Loyalty, referrals, influencers, email capture{\ldots}             4.8   
+          25     Increase sales with scarcity, urgency, and trust             4.9   
+          26    Free Ad exchange to help you acquire high qual{\ldots}             4.9   
+          27                        Custom Printing \& Warehousing             4.7   
+          28                    Check your store for SEO problems             4.8   
+          29    Collect Reviews, Site Reviews, Photo Reviews \&{\ldots}             4.9   
+          {\ldots}                                                 {\ldots}             {\ldots}   
+          1241  Sync detailed customer and order data to Campa{\ldots}             5.0   
+          1242           Easy and powerful drop shipping platform             5.0   
+          1243  Create a free notification bar, announcement o{\ldots}             5.0   
+          1244  Boost sales by helping customers find what the{\ldots}             5.0   
+          1245                        Donate to local non-profits             5.0   
+          1300   Schedule emails in response to customer actions.             5.0   
+          1301  Identify Influencers \& Micro-Influencers Among{\ldots}             5.0   
+          1302  Additional information on products? use smart {\ldots}             5.0   
+          1303  Instant ecommerce analytics, powerful CRM and {\ldots}             5.0   
+          1304  Integrated Shipping Label Tool for Online Sellers             5.0   
+          1385  Automate your dropshipping business - Orders F{\ldots}             5.0   
+          1386  Provide Pick-up Points and Easy Shipping of Yo{\ldots}             5.0   
+          1387  Easily add custom code to the HEAD section of {\ldots}             5.0   
+          1388  Universal easily embeddable product images slider             5.0   
+          1389  Broken links mean less customers. Fix broken l{\ldots}             5.0   
+          1488  Let your customers pay in cash and be notified{\ldots}             5.0   
+          1489  Track Shopify sales and other vital data on a {\ldots}             5.0   
+          1490  Automated sales tax return preparation and filing             5.0   
+          1491  Advanced inventory management and reporting fo{\ldots}             5.0   
+          1492    Discounted shipping rates; brand name couriers.             5.0   
+          1615  Optimize your ad spend across Facebook, Google{\ldots}             5.0   
+          1616  Printex Print-On-Demand Fulfillment and Wareho{\ldots}             5.0   
+          1617  Create beautiful lead capture forms with Exit {\ldots}             5.0   
+          1618  Your personal data analyst, for automated and {\ldots}             5.0   
+          1619        Bring offline customer to online by QR Code             5.0   
+          1823  The fastest and easiest way to switch to Shopi{\ldots}             0.0   
+          1824                           Freedom from data entry!             0.0   
+          1825  Offer free shipping to increase your average r{\ldots}             0.0   
+          1826  Need to filter by variants, such as color, mat{\ldots}             0.0   
+          1827  Discover Opportunities in GMC Product Feed for{\ldots}             0.0   
+          
+                Rating Count  Page  
+          0            16577     1  
+          1            14159     1  
+          2             6751     1  
+          3             6590     2  
+          4             5885     1  
+          5             4699     3  
+          6             4231     2  
+          7             3916     1  
+          8             3821     4  
+          9             3685     3  
+          10            3061     3  
+          11            2938     2  
+          12            2701     7  
+          13            2688     1  
+          14            2549     6  
+          15            2463     4  
+          16            2302     4  
+          17            2201     1  
+          18            2102     8  
+          19            2065     5  
+          20            2024     3  
+          21            2007     3  
+          22            1992     3  
+          23            1971     3  
+          24            1952     5  
+          25            1843     5  
+          26            1788    13  
+          27            1740     1  
+          28            1673     1  
+          29            1649     2  
+          {\ldots}            {\ldots}   {\ldots}  
+          1241             5    30  
+          1242             5    31  
+          1243             5    39  
+          1244             5    42  
+          1245             5    44  
+          1300             4    33  
+          1301             4    35  
+          1302             4    37  
+          1303             4    42  
+          1304             4    42  
+          1385             3    26  
+          1386             3    26  
+          1387             3    40  
+          1388             3    41  
+          1389             3    44  
+          1488             2    19  
+          1489             2    21  
+          1490             2    32  
+          1491             2    37  
+          1492             2    41  
+          1615             1    28  
+          1616             1    28  
+          1617             1    29  
+          1618             1    42  
+          1619             1    44  
+          1823             0    33  
+          1824             0    36  
+          1825             0    46  
+          1826             0    48  
+          1827             0    48  
+          
+          [745 rows x 6 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{c+c1}{\PYZsh{}Maximum ratings counts are given to (4.7 to 4.9) and all of them are free available}
+         \PY{c+c1}{\PYZsh{}Whereas pages are smaller in number}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}preliminary Conclusion}
+        \PY{c+c1}{\PYZsh{}After Pricing (Mostly Free), avearge Rating (4.7 to 4.9), Rating count (max rating counts are given to free apps), }
+        \PY{c+c1}{\PYZsh{}Page (smaller in number)}
+        \PY{c+c1}{\PYZsh{}We have to measure app description impact on application rating.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}Next step is to implement model to predict most favorite apps for future}
+        \PY{c+c1}{\PYZsh{}Based on App Description, Rating, Rating count and Pricing.}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
